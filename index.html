@@ -1,0 +1,537 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>李越 · 全栈开发 · 个人主页</title>
+<meta name="description" content="李越的个人主页：计算机专业应届生，全栈方向，微信小程序 / Spring Boot / 大模型应用。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232563eb'/%3E%3Ctext x='32' y='44' font-size='34' font-family='sans-serif' fill='white' text-anchor='middle'%3E%E6%9D%8E%3C/text%3E%3C/svg%3E">
+
+<!--
+  需要你改的地方都标了「改」字样，在编辑器里搜索「改」就能逐个找到。
+  重点：姓名、学校、联系方式、GitHub 链接。
+  这一份可以直接双击打开，也可以直接拖到 Vercel / GitHub Pages / 对象存储上。
+-->
+
+<style>
+  :root {
+    --bg: #ffffff;
+    --bg-soft: #f7f8fa;
+    --card: #ffffff;
+    --line: #e6e8ec;
+    --ink: #14181f;
+    --ink-2: #454c59;
+    --ink-3: #7b8494;
+    --accent: #2563eb;
+    --accent-soft: #eef3ff;
+    --radius: 14px;
+    --maxw: 880px;
+  }
+  html[data-theme="dark"] {
+    --bg: #0e1116;
+    --bg-soft: #14181f;
+    --card: #161b22;
+    --line: #262c36;
+    --ink: #eef1f5;
+    --ink-2: #b6bdc9;
+    --ink-3: #7f8896;
+    --accent: #6ea0ff;
+    --accent-soft: #16233d;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+                 "Hiragino Sans GB", "Microsoft YaHei", "Source Han Sans SC", sans-serif;
+    font-size: 16px;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+  a.link { color: var(--accent); border-bottom: 1px solid color-mix(in srgb, var(--accent) 35%, transparent); }
+  a.link:hover { border-bottom-color: var(--accent); }
+
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
+
+  /* 顶部导航 */
+  .nav {
+    position: sticky; top: 0; z-index: 30;
+    backdrop-filter: saturate(180%) blur(12px);
+    background: color-mix(in srgb, var(--bg) 82%, transparent);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-inner { display: flex; align-items: center; gap: 18px; height: 58px; }
+  .brand { font-weight: 650; letter-spacing: .01em; }
+  .brand span { color: var(--ink-3); font-weight: 400; margin-left: 8px; font-size: 14px; }
+  .nav-links { margin-left: auto; display: flex; gap: 4px; align-items: center; }
+  .nav-links a {
+    font-size: 14px; color: var(--ink-2); padding: 6px 12px; border-radius: 999px;
+  }
+  .nav-links a:hover { color: var(--ink); background: var(--bg-soft); }
+  .icon-btn {
+    background: none; border: 1px solid var(--line); color: var(--ink-2);
+    width: 34px; height: 34px; border-radius: 10px; cursor: pointer;
+    display: grid; place-items: center; font-size: 15px; padding: 0;
+  }
+  .icon-btn:hover { color: var(--ink); background: var(--bg-soft); }
+  @media (max-width: 720px) { .nav-links a { display: none; } .nav-links a.keep { display: inline-block; } }
+
+  /* 首屏 */
+  .hero { padding: 78px 0 54px; }
+  .eyebrow {
+    display: inline-block; font-size: 13px; color: var(--accent);
+    background: var(--accent-soft); padding: 4px 12px; border-radius: 999px;
+    margin-bottom: 20px; letter-spacing: .02em;
+  }
+  h1 { font-size: clamp(30px, 5.4vw, 44px); line-height: 1.25; margin: 0 0 16px; letter-spacing: -.01em; }
+  h1 small { display: block; font-size: 16px; font-weight: 400; color: var(--ink-3); margin-top: 12px; letter-spacing: 0; }
+  .hero p.lead { font-size: 17px; color: var(--ink-2); max-width: 640px; margin: 0 0 28px; }
+  .actions { display: flex; flex-wrap: wrap; gap: 10px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 10px 18px; border-radius: 10px; font-size: 15px;
+    border: 1px solid var(--line); color: var(--ink); background: var(--card); cursor: pointer;
+  }
+  .btn:hover { border-color: var(--accent); color: var(--accent); }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .btn.primary:hover { filter: brightness(1.06); color: #fff; }
+
+  /* 关键数字 */
+  .stats {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
+    background: var(--line); border: 1px solid var(--line);
+    border-radius: var(--radius); overflow: hidden; margin-top: 40px;
+  }
+  .stats div { background: var(--bg-soft); padding: 16px 18px; }
+  .stats b { display: block; font-size: 22px; font-weight: 650; letter-spacing: -.01em; }
+  .stats span { font-size: 13px; color: var(--ink-3); }
+  @media (max-width: 640px) { .stats { grid-template-columns: repeat(2, 1fr); } }
+
+  /* 区块 */
+  section { padding: 46px 0; border-top: 1px solid var(--line); }
+  .sec-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 24px; }
+  .sec-head h2 { font-size: 13px; font-weight: 600; letter-spacing: .12em; color: var(--ink-3); margin: 0; text-transform: uppercase; }
+  .sec-head .rule { flex: 1; height: 1px; background: var(--line); }
+
+  .prose p { margin: 0 0 14px; color: var(--ink-2); }
+  .prose p:last-child { margin-bottom: 0; }
+  .prose strong { color: var(--ink); font-weight: 600; }
+
+  /* 技能 */
+  .skills { display: grid; gap: 14px; }
+  .skill-row {
+    display: grid; grid-template-columns: 116px 1fr; gap: 16px; align-items: start;
+    padding: 14px 16px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--card);
+  }
+  .skill-row h3 { margin: 0; font-size: 14px; font-weight: 600; color: var(--ink); }
+  .tags { display: flex; flex-wrap: wrap; gap: 7px; }
+  .tag {
+    font-size: 13px; color: var(--ink-2); background: var(--bg-soft);
+    border: 1px solid var(--line); padding: 2px 10px; border-radius: 8px;
+  }
+  @media (max-width: 600px) { .skill-row { grid-template-columns: 1fr; gap: 10px; } }
+
+  /* 项目 */
+  .project {
+    border: 1px solid var(--line); border-radius: var(--radius);
+    background: var(--card); padding: 24px; margin-bottom: 18px;
+  }
+  .project-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px; margin-bottom: 6px; }
+  .project-head h3 { margin: 0; font-size: 19px; font-weight: 650; }
+  .project-head .role { font-size: 13px; color: var(--ink-3); }
+  .stack { display: flex; flex-wrap: wrap; gap: 7px; margin: 12px 0 18px; }
+  .stack span { font-size: 12.5px; color: var(--accent); background: var(--accent-soft); padding: 2px 10px; border-radius: 7px; }
+  .project h4 { font-size: 14px; margin: 20px 0 8px; color: var(--ink); }
+  .project ul { margin: 0; padding-left: 20px; color: var(--ink-2); }
+  .project li { margin-bottom: 7px; }
+  .project li::marker { color: var(--ink-3); }
+  .project code {
+    font-family: ui-monospace, SFMono-Regular, Consolas, "Cascadia Mono", monospace;
+    font-size: 13px; background: var(--bg-soft); border: 1px solid var(--line);
+    padding: 1px 5px; border-radius: 5px; color: var(--ink);
+  }
+
+  /* 时间线（教育 / 经历） */
+  .timeline { display: grid; gap: 16px; }
+  .tl-item { display: grid; grid-template-columns: 132px 1fr; gap: 16px; }
+  .tl-item .when { font-size: 13.5px; color: var(--ink-3); padding-top: 2px; }
+  .tl-item h3 { margin: 0 0 4px; font-size: 16px; font-weight: 600; }
+  .tl-item p { margin: 0; color: var(--ink-2); font-size: 15px; }
+  @media (max-width: 600px) { .tl-item { grid-template-columns: 1fr; gap: 4px; } }
+
+  /* 联系方式 */
+  .contact { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .contact a {
+    display: flex; align-items: center; gap: 12px; padding: 15px 18px;
+    border: 1px solid var(--line); border-radius: var(--radius); background: var(--card);
+  }
+  .contact a:hover { border-color: var(--accent); }
+  .contact .k { font-size: 13px; color: var(--ink-3); min-width: 46px; }
+  .contact .v { font-size: 14.5px; }
+  @media (max-width: 600px) { .contact { grid-template-columns: 1fr; } }
+
+  footer { padding: 30px 0 50px; color: var(--ink-3); font-size: 13.5px; border-top: 1px solid var(--line); }
+  footer .wrap { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; }
+
+  /* 打印：同一份文件可以直接 Ctrl+P 出一份简历 */
+  @media print {
+    :root { --bg: #fff; --bg-soft: #fff; --card: #fff; --line: #d9d9d9; --ink: #000; --ink-2: #1f1f1f; --ink-3: #555; --accent: #000; --accent-soft: #fff; }
+    @page { margin: 13mm; }
+    .nav, .actions, footer { display: none !important; }
+    body { font-size: 10.5px; line-height: 1.55; }
+    .wrap { max-width: none; padding: 0; }
+    .hero { padding: 0 0 10px; }
+    .eyebrow { font-size: 10.5px; padding: 2px 8px; margin-bottom: 10px; }
+    h1 { font-size: 21px; margin-bottom: 8px; }
+    h1 small { font-size: 12px; margin-top: 6px; }
+    .hero p.lead { font-size: 11px; margin-bottom: 12px; }
+    .stats { margin-top: 12px; grid-template-columns: repeat(4, 1fr); }
+    .stats div { padding: 8px 10px; }
+    .stats b { font-size: 15px; }
+    .stats span { font-size: 10px; }
+    section { padding: 12px 0; break-inside: avoid; }
+    .sec-head { margin-bottom: 10px; }
+    .sec-head h2 { font-size: 11px; }
+    .prose p { margin-bottom: 8px; }
+    .skills { grid-template-columns: 1fr 1fr; gap: 8px; }
+    .skill-row { grid-template-columns: 1fr; gap: 6px; padding: 8px 10px; break-inside: avoid; }
+    .tag { font-size: 10px; padding: 1px 7px; }
+    .project { padding: 14px; margin-bottom: 10px; break-inside: avoid; }
+    .project-head h3 { font-size: 15px; }
+    .stack { margin: 8px 0 10px; }
+    .project h4 { margin: 10px 0 5px; font-size: 11.5px; }
+    .project ul { padding-left: 16px; }
+    .project li { margin-bottom: 4px; }
+    .project code { font-size: 10px; padding: 0 3px; }
+    .tl-item { grid-template-columns: 96px 1fr; gap: 10px; }
+    .contact { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+    .contact a { padding: 9px 12px; break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <div class="brand">李越<span>全栈开发</span></div><!-- 改：姓名 / 定位 -->
+    <nav class="nav-links">
+      <a href="#about">关于</a>
+      <a href="#skills">技能</a>
+      <a href="#work">项目</a>
+      <a href="#edu">教育</a>
+      <a href="#contact" class="keep">联系</a>
+      <button class="icon-btn" id="themeBtn" title="切换深浅色" aria-label="切换深浅色">◐</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section class="hero wrap" id="top" style="border-top:none">
+    <span class="eyebrow">2027 届 · 计算机科学与技术 · 求职中</span><!-- 改：届别 / 专业 -->
+    <h1>
+      从数据库做到用户手机上的那个人
+      <small>Java 后端 · 微信小程序 · 大模型应用</small>
+    </h1>
+    <p class="lead">
+      独立做完一个三层架构的智慧医疗小程序，从 15 个前端页面一直写到 RAG 检索服务；
+      再用 MySQL、Redis 和 JWT 把预约挂号改造成扛得住并发的版本。
+      代码能跑只是及格线，我更在意它跑得对不对，所以习惯给修过的 Bug 补一个测试。
+    </p>
+    <div class="actions">
+      <a class="btn primary" href="#work">看项目</a>
+      <a class="btn" href="mailto:2791044820@qq.com">发邮件</a><!-- 改：邮箱 -->
+      <button class="btn" onclick="window.print()">打印 / 存为 PDF</button>
+    </div>
+
+    <div class="stats">
+      <div><b>3 层</b><span>独立完成的全栈架构</span></div>
+      <div><b>0 超卖</b><span>100 人并发抢 20 个号</span></div>
+      <div><b>18 个</b><span>自动化测试用例</span></div>
+      <div><b>0.58 MB</b><span>小程序包体（原 7.07 MB）</span></div>
+    </div>
+  </section>
+
+  <section class="wrap" id="about">
+    <div class="sec-head"><h2>关于我</h2><div class="rule"></div></div>
+    <div class="prose">
+      <p>
+        计算机专业大四在读。真正让我对工程感兴趣的，是做智慧医疗小程序时踩的那一串坑：
+        配了 API Key 之后接口全线报"服务不可用"，查到最后发现是自己写远程向量库时把裸向量当文档对象用了，
+        而 Java 那层的兜底逻辑把它伪装成了环境问题。那次之后我改了三个习惯：兜底的代码必须记完整堆栈，
+        修过的 Bug 必须留一个测试，功能做完先量一下包体和响应时间。
+      </p>
+      <p>
+        我现在能独立把一个小程序从界面做到后端接口，也能把大模型接进业务流程里，
+        并且知道在没有 API Key、远程服务挂掉、知识库为空这些情况下该怎么降级，
+        而不是让用户对着白屏和转圈等。
+      </p>
+      <p>
+        后来我把这个项目又做了一遍。数据从 Java 静态类搬进 MySQL，登录换成 JWT，
+        预约挂号加上 Redis 预扣和数据库原子扣减，先用压测复现出 180 单超卖，再把它压回 0。
+        现在我能说清楚并发问题是怎么发生的，也能拿出数据证明它真的被解决了。
+      </p>
+    </div>
+  </section>
+
+  <section class="wrap" id="skills">
+    <div class="sec-head"><h2>技能</h2><div class="rule"></div></div>
+    <div class="skills">
+      <div class="skill-row">
+        <h3>前端 / 小程序</h3>
+        <div class="tags">
+          <span class="tag">微信小程序原生开发</span>
+          <span class="tag">WXML / WXSS</span>
+          <span class="tag">JavaScript ES6</span>
+          <span class="tag">Promise / 模块化</span>
+          <span class="tag">响应式布局</span>
+        </div>
+      </div>
+      <div class="skill-row">
+        <h3>后端</h3>
+        <div class="tags">
+          <span class="tag">Java</span>
+          <span class="tag">Spring Boot 2.7</span>
+          <span class="tag">RESTful API</span>
+          <span class="tag">Bean Validation</span>
+          <span class="tag">全局异常处理</span>
+          <span class="tag">RestTemplate</span>
+          <span class="tag">Maven</span>
+        </div>
+      </div>
+      <div class="skill-row">
+        <h3>数据与并发</h3>
+        <div class="tags">
+          <span class="tag">MySQL 8</span>
+          <span class="tag">索引与事务</span>
+          <span class="tag">MyBatis</span>
+          <span class="tag">Redis + Lua</span>
+          <span class="tag">并发控制 / 防超卖</span>
+          <span class="tag">JWT 鉴权</span>
+          <span class="tag">BCrypt</span>
+          <span class="tag">Docker Compose</span>
+          <span class="tag">并发压测与耗时分析</span>
+        </div>
+      </div>
+      <div class="skill-row">
+        <h3>AI 应用</h3>
+        <div class="tags">
+          <span class="tag">RAG 检索增强</span>
+          <span class="tag">文本分块与召回</span>
+          <span class="tag">TF-IDF / 余弦相似度</span>
+          <span class="tag">Embedding 接口对接</span>
+          <span class="tag">提示词设计</span>
+          <span class="tag">Python / FastAPI</span>
+          <span class="tag">jieba</span>
+        </div>
+      </div>
+      <div class="skill-row">
+        <h3>工程习惯</h3>
+        <div class="tags">
+          <span class="tag">单元测试 / 回归测试</span>
+          <span class="tag">日志排查</span>
+          <span class="tag">接口探活设计</span>
+          <span class="tag">包体与素材优化</span>
+          <span class="tag">参数校验与降级</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap" id="work">
+    <div class="sec-head"><h2>项目</h2><div class="rule"></div></div>
+
+    <article class="project">
+      <div class="project-head">
+        <h3>安诊 · 智慧医疗小程序</h3>
+        <span class="role">独立开发 · 全栈</span>
+      </div>
+      <p style="color:var(--ink-2); margin:0 0 4px">
+        给一个原本只有前端的医疗小程序加上 AI 问诊，并把它拆成小程序、Java 后端、Python RAG 服务三层。
+      </p>
+      <div class="stack">
+        <span>微信小程序</span><span>Spring Boot 2.7</span><span>JDK 8</span>
+        <span>FastAPI</span><span>RAG</span><span>火山方舟 / OpenAI 兼容接口</span>
+      </div>
+
+      <h4>做了什么</h4>
+      <ul>
+        <li>把写死在 <code>app.js</code> 里的科室、医生、药品数据搬到 Spring Boot 服务端，小程序侧统一走一个请求封装。</li>
+        <li>新增 AI 问诊页面：小程序 <code>wx.request</code> → Java 转发 → Python RAG 检索 → 大模型生成，API Key 只存在于服务端环境变量。</li>
+        <li>检索层做了两套：配了 Key 用远程 Embedding，没配就用 jieba 分词加 TF-IDF 算余弦，不用装向量数据库，离线也能演示。</li>
+        <li>检索到的片段只作为资料拼进 prompt，回答限制在 300 字内，涉及用药必须提示遵医嘱，急重症提示直接就医。</li>
+        <li>工程细节：参数校验、统一异常出口、回答缓存、知识库增量写入落盘、<code>/api/ai/health</code> 探活。</li>
+      </ul>
+
+      <h4>花了力气的地方</h4>
+      <ul>
+        <li>
+          <strong>配了 Key 反而全挂。</strong>远程向量库写索引时存的是裸向量，检索时却按文档对象取字段，一查就抛
+          <code>TypeError</code>；Java 层的兜底又把它包装成"服务未启动"，把真相藏了一层。
+          修完补了 8 个回归测试，其中一个是遍历全部片段校验向量权重口径。
+        </li>
+        <li>
+          <strong>检索得分不公平。</strong>每写入一篇文档只刷新新片段的 TF-IDF 权重，先写入的文档还在用旧的 IDF，
+          同样的词在两篇文档里权重口径不同。改成批量写入后全量重建索引。
+        </li>
+        <li>
+          <strong>包体超限。</strong>微信主包上限 2 MB，而素材有 7.07 MB，其中一张代码里写小写的
+          <code>doc1.jpg</code> 实际是 5.5 MB 的 PNG，只把扩展名改成了 JPG。
+          按实际显示尺寸重编码后包体降到 0.58 MB。
+        </li>
+      </ul>
+
+      <h4>结果</h4>
+      <ul>
+        <li>小程序包体 7.07 MB → 0.58 MB，材料优化脚本可重复运行，原图自动备份。</li>
+        <li>知识库 33 篇、2525 个词项，测试用的 5 个真实问题 Top-1 全部命中正确文档。</li>
+        <li>未配置 API Key、远程接口报错、知识库为空三种情况都不会白屏，会退到本地检索或明确告知没覆盖到。</li>
+      </ul>
+    </article>
+
+    <article class="project">
+      <div class="project-head">
+        <h3>安诊 v2 · 预约挂号的高并发改造</h3>
+        <span class="role">个人项目 · 后端为主</span>
+      </div>
+      <p style="color:var(--ink-2); margin:0 0 4px">
+        把 v1 里写在 Java 静态类中的数据搬进 MySQL，给「抢号」这个场景补上并发控制，
+        并用压测数据证明它真的不超卖。
+      </p>
+      <div class="stack">
+        <span>MySQL 8</span><span>MyBatis</span><span>Redis + Lua</span>
+        <span>JWT</span><span>微信登录</span><span>Docker Compose</span>
+      </div>
+
+      <h4>做了什么</h4>
+      <ul>
+        <li>设计 5 张表：唯一索引保证同一用户对同一排班只有一条记录，排班表用带条件的原子 UPDATE 扣减号源。</li>
+        <li>抢号做成三层防护：Redis 加 Lua 预扣挡流量、数据库原子扣减保正确、唯一索引兜底防重复。</li>
+        <li>登录支持三种路径：手机号密码、微信一键登录（wx.login 换 openid）、微信用户后补手机号。</li>
+        <li>预约必须指定就诊人：一个账号可以给家人挂号，预约单单独存就诊人信息，并生成就诊序号。</li>
+        <li>处理了预扣失败要还号的问题；Redis 挂掉时自动降级到纯数据库方案，预约仍然可用。</li>
+        <li>用 Docker Compose 编排 MySQL、Redis、Java、Python 四个服务，一条命令起全栈。</li>
+      </ul>
+
+      <h4>花了力气的地方</h4>
+      <ul>
+        <li>
+          <strong>先复现，再修复。</strong>故意留了一个「先查再改」的错误接口做对照：
+          100 个线程抢 20 个号，卖出去 100 单，而数据库余量只减了 6 个。
+          换成一条带条件的原子 UPDATE 之后，成功数被死死压在上限之内。
+        </li>
+        <li>
+          <strong>号源泄漏。</strong>Redis 预扣成功但数据库这条路失败时，必须把号还回缓存，
+          否则会出现「缓存说没号了、数据库里还空着」，用户再也约不上。
+        </li>
+        <li>
+          <strong>只有真跑起来才会暴露的问题。</strong>取消预约之后同一个号再也约不上，
+          因为唯一索引挡住了新记录，得改成激活旧记录；压测脚本的账号格式和后端造的数据对不上，
+          表现是「全部登录失败」而不是报错。
+        </li>
+      </ul>
+
+      <h4>结果</h4>
+      <ul>
+        <li>100 人并发抢 20 个号：成功正好 20 单、0 超卖、余量归零；对照组的错误写法超卖 80 单。</li>
+        <li>18 个自动化测试用例，一条 <code>mvn test</code> 跑完，用 H2 内存库加 Redis 打桩，不依赖外部服务。</li>
+        <li>微信一键登录：小程序只拿 code，AppSecret 全程留在服务器；没配 AppID 时自动进模拟模式，链路照样能演示。</li>
+        <li>Redis 不可用时预约接口照常工作，有专门的测试用例覆盖这条降级路径。</li>
+      </ul>
+    </article>
+  </section>
+
+  <section class="wrap" id="edu">
+    <div class="sec-head"><h2>教育背景</h2><div class="rule"></div></div>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="when">2027届</div>
+        <div>
+          <h3>武汉工程大学邮电与信息工程学院· 计算机科学与技术 · 本科</h3>
+          <p>主修课程：数据库系统综合设计、移动开发技术、Java EE、Web 前端、python语言。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap" id="topics">
+    <div class="sec-head"><h2>面试可以聊的话题</h2><div class="rule"></div></div>
+    <div class="prose">
+      <p>这三件事我都能从代码讲到取舍：</p>
+      <p>
+        <strong>抢号为什么不会超卖。</strong>三层防护各管什么、为什么这个场景不用乐观锁版本号，
+        以及 MySQL 默认的 REPEATABLE READ 会怎么坑到「失败后重试」那段逻辑。
+      </p>
+      <p>
+        <strong>兜底逻辑的代价。</strong>一个"让用户体验不崩"的兜底，差点让我排查错方向。
+        现在我会怎么设计错误信息的边界。
+      </p>
+      <p>
+        <strong>什么时候不该上重方案。</strong>这个项目没有向量数据库，也没有引入框架，
+        检索是自己用 TF-IDF 写的，谈一下什么量级下够用、什么时候必须换掉。
+      </p>
+    </div>
+  </section>
+
+  <section class="wrap" id="contact">
+    <div class="sec-head"><h2>联系我</h2><div class="rule"></div></div>
+    <div class="contact">
+      <a href="mailto:2791044820@qq.com"><span class="k">邮箱</span><span class="v">2791044820@qq.com</span></a>
+      <a href="tel:13800000000"><span class="k">手机</span><span class="v">17823267477</span></a>
+      <a href="https://github.com/huoxu52" target="_blank" rel="noopener"><span class="k">GitHub</span><span class="v">github.com/huoxu52</span></a><!-- 改 -->
+      <a href="#top"><span class="k">简历</span><span class="v">本页可直接打印为 PDF</span></a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© <span id="year">2026</span> 李越</span>
+    <span>用原生 HTML / CSS 手写，无外部依赖</span>
+  </div>
+</footer>
+
+<script>
+  // 有些浏览器直接用 file:// 打开时 localStorage 会抛异常，
+  // 包一层，别让一个存储失败把后面所有脚本都带停
+  function readTheme() { try { return localStorage.getItem('theme'); } catch (e) { return null; } }
+  function saveTheme(v) { try { localStorage.setItem('theme', v); } catch (e) { /* 忽略 */ } }
+
+  // 深浅色：记住上次选择，没选过就看系统
+  (function () {
+    var saved = readTheme();
+    var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    document.documentElement.setAttribute('data-theme', saved || (prefersDark ? 'dark' : 'light'));
+  })();
+
+  var themeBtn = document.getElementById('themeBtn');
+  if (themeBtn) {
+    themeBtn.addEventListener('click', function () {
+      var now = document.documentElement.getAttribute('data-theme');
+      var next = now === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      saveTheme(next);
+    });
+  }
+
+  var yearEl = document.getElementById('year');
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+  // 点了导航之后让目标标题落到舒服的位置
+  document.querySelectorAll('.nav-links a[href^="#"]').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      var target = document.querySelector(a.getAttribute('href'));
+      if (!target) return;
+      e.preventDefault();
+      window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - 70, behavior: 'smooth' });
+    });
+  });
+</script>
+
+</body>
+</html>
